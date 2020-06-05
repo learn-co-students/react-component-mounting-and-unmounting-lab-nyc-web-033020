@@ -14,6 +14,7 @@ class Pancake extends React.Component {
 
   // TODO: create a componentWillUnmount() which will clear the interval
 
+  // shouldn't this use prevState? Rec was to not use this.state within setState
   updateCounter = () => {
     this.setState({
       timeCooked: this.state.timeCooked + 1
@@ -24,8 +25,17 @@ class Pancake extends React.Component {
     this.interval = setInterval(this.updateCounter, 1000);
   };
 
+  componentDidMount(){
+    this.startInterval()
+  };
+
+
   cleanUpInterval = () => {
     clearInterval(this.interval);
+  };
+
+  componentWillUnmount(){
+    this.cleanUpInterval()
   };
 
   flip = () => {
